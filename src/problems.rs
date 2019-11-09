@@ -122,8 +122,7 @@ pub fn smallest_multiple(n: i64) -> i64 {
     let mut factors: Vec<i64> = Vec::new();
 
     for p in 1..n + 1 {
-        let pfs = prime_factors(p as i64); // pfs is always sorted
-
+        let pfs = prime_factors(p as i64);
         for ele in &pfs {
             let a = pfs.iter().filter(|n| *n == ele).count();
             let b = factors.iter().filter(|n| *n == ele).count();
@@ -137,7 +136,6 @@ pub fn smallest_multiple(n: i64) -> i64 {
             for _ in 0..diff {
                 factors.push(*ele);
             }
-            factors.sort();
         }
     }
     factors.iter().product()
