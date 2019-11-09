@@ -44,7 +44,7 @@ pub fn even_fibonacci(n: u32) -> u32 {
 //
 // The prime factors of 13195 are 5, 7, 13 and 29.
 // What is the largest prime factor of the number 600851475143?
-pub fn largest_prime_factor(mut n: i64) -> i64 {
+pub fn largest_prime_factor(mut n: u64) -> u64 {
     // let mut n: i64 = 600851475143;
 
     let mut p = 2;
@@ -64,7 +64,7 @@ pub fn largest_prime_factor(mut n: i64) -> i64 {
 // A palindromic number reads the same both ways. The largest palindrome made
 // from the product of two 2-digit numbers is 9009 = 91 × 99. Find the largest
 // palindrome made from the product of two 3-digit numbers.
-fn prime_factors(mut n: i64) -> Vec<i64> {
+fn prime_factors(mut n: u64) -> Vec<u64> {
     let mut factors = Vec::new();
 
     let mut p = 2;
@@ -80,11 +80,11 @@ fn prime_factors(mut n: i64) -> Vec<i64> {
     factors
 }
 
-fn is_palindromic_number(num: i64) -> bool {
+fn is_palindromic_number(num: u64) -> bool {
     num.to_string() == num.to_string().chars().rev().collect::<String>()
 }
 
-pub fn largest_palindrome_product(mut n: i64, m: i64) -> i64 {
+pub fn largest_palindrome_product(mut n: u64, m: u64) -> u64 {
     while n >= m {
         if is_palindromic_number(n) {
             for p in (100..999).rev() {
@@ -95,7 +95,7 @@ pub fn largest_palindrome_product(mut n: i64, m: i64) -> i64 {
         }
         n -= 1;
     }
-    -1
+    0
 }
 
 // Problem 5
@@ -118,11 +118,11 @@ pub fn clumsy_smallest_multiple(n: u64) -> u64 {
     0
 }
 
-pub fn smallest_multiple(n: i64) -> i64 {
-    let mut factors: Vec<i64> = Vec::new();
+pub fn smallest_multiple(n: u64) -> u64 {
+    let mut factors: Vec<u64> = Vec::new();
 
     for p in 1..n + 1 {
-        let pfs = prime_factors(p as i64);
+        let pfs = prime_factors(p as u64);
         for ele in &pfs {
             let a = pfs.iter().filter(|n| *n == ele).count();
             let b = factors.iter().filter(|n| *n == ele).count();
