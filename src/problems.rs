@@ -141,6 +141,39 @@ pub fn smallest_multiple(n: u64) -> u64 {
     factors.iter().product()
 }
 
+#[allow(dead_code)]
+fn gcd(mut a: u64, mut b: u64) -> u64 {
+    while a != 0 {
+        let c = a;
+        a = b % a;
+        b = c;
+    }
+    b
+}
+
+#[allow(dead_code)]
+fn lcm(a: u64, b: u64) -> u64 {
+    a * (b / gcd(a, b))
+}
+
+pub fn smallest_multiple2(n: u64) -> u64 {
+    let mut res: u64 = 1;
+    let gcd = |mut a: u64, mut b: u64| {
+        while a != 0 {
+            let c = a;
+            a = b % a;
+            b = c;
+        }
+        b
+    };
+
+    let lcm = |a: u64, b: u64| a * (b / gcd(a, b));
+    for i in 2..n + 1 {
+        res = lcm(res, i);
+    }
+    res
+}
+
 // Problem 6
 // Sum square difference
 //

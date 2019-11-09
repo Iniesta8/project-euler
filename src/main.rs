@@ -11,7 +11,8 @@ fn main() {
         "Problem 4 solution: {}",
         problems::largest_palindrome_product(999 * 999, 100 * 100)
     );
-    println!("Problem 5 solution: {}", problems::smallest_multiple(20));
+    println!("Problem 5 solution A: {}", problems::smallest_multiple(20));
+    println!("Problem 5 solution B: {}", problems::smallest_multiple2(20));
     println!(
         "Problem 6 solution: {}",
         problems::sum_square_difference(100)
