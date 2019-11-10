@@ -11,9 +11,9 @@ fn main() {
         "Problem 4 solution: {}",
         solutions::largest_palindrome_product(999 * 999, 100 * 100)
     );
-    println!("Problem 5 solution A: {}", solutions::smallest_multiple(20));
     println!(
-        "Problem 5 solution B: {}",
+        "Problem 5 solution A: {}, B: {}",
+        solutions::smallest_multiple(20),
         solutions::smallest_multiple2(20)
     );
     println!(
@@ -21,4 +21,9 @@ fn main() {
         solutions::sum_square_difference(100)
     );
     println!("Problem 7 solution: {}", solutions::nth_prime(10001));
+    println!(
+        "Problem 10 solution A: {}, B: {}",
+        solutions::sum_of_primes(2000000),
+        solutions::sum_of_primes_sieve(2000000)
+    );
 }

@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 
-pub fn prime_factors(mut n: u64) -> Vec<u64> {
+pub fn prime_factors(mut n: usize) -> Vec<usize> {
     let mut factors = Vec::new();
 
     if n < 2 {
@@ -20,11 +20,11 @@ pub fn prime_factors(mut n: u64) -> Vec<u64> {
     factors
 }
 
-pub fn is_palindromic_number(num: u64) -> bool {
+pub fn is_palindromic_number(num: usize) -> bool {
     num.to_string() == num.to_string().chars().rev().collect::<String>()
 }
 
-pub fn gcd(mut a: u64, mut b: u64) -> u64 {
+pub fn gcd(mut a: usize, mut b: usize) -> usize {
     while a != 0 {
         let c = a;
         a = b % a;
@@ -33,7 +33,7 @@ pub fn gcd(mut a: u64, mut b: u64) -> u64 {
     b
 }
 
-pub fn lcm(a: u64, b: u64) -> u64 {
+pub fn lcm(a: usize, b: usize) -> usize {
     a * (b / gcd(a, b))
 }
 
@@ -49,7 +49,7 @@ pub fn clumsy_is_prime(n: u32) -> bool {
     true
 }
 
-pub fn is_prime(n: u32) -> bool {
+pub fn is_prime(n: usize) -> bool {
     if n <= 3 {
         return n > 1;
     } else if n % 2 == 0 || n % 3 == 0 {

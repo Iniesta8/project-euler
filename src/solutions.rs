@@ -47,9 +47,7 @@ pub fn even_fibonacci(n: u32) -> u32 {
 //
 // The prime factors of 13195 are 5, 7, 13 and 29.
 // What is the largest prime factor of the number 600851475143?
-pub fn largest_prime_factor(mut n: u64) -> u64 {
-    // let mut n: i64 = 600851475143;
-
+pub fn largest_prime_factor(mut n: usize) -> usize {
     let mut p = 2;
     while n >= p * p {
         if n % p == 0 {
@@ -67,7 +65,7 @@ pub fn largest_prime_factor(mut n: u64) -> u64 {
 // A palindromic number reads the same both ways. The largest palindrome made
 // from the product of two 2-digit numbers is 9009 = 91 × 99. Find the largest
 // palindrome made from the product of two 3-digit numbers.
-pub fn largest_palindrome_product(mut n: u64, m: u64) -> u64 {
+pub fn largest_palindrome_product(mut n: usize, m: usize) -> usize {
     while n >= m {
         if helper::is_palindromic_number(n) {
             for p in (100..999).rev() {
@@ -88,8 +86,8 @@ pub fn largest_palindrome_product(mut n: u64, m: u64) -> u64 {
 // to 10 without any remainder. What is the smallest positive number that is
 // evenly divisible by all of the numbers from 1 to 20?
 #[allow(dead_code)]
-pub fn clumsy_smallest_multiple(n: u64) -> u64 {
-    for i in 1..u64::max_value() {
+pub fn clumsy_smallest_multiple(n: usize) -> usize {
+    for i in 1..usize::max_value() {
         for j in 1..n + 1 {
             if i % j != 0 {
                 break;
@@ -101,11 +99,11 @@ pub fn clumsy_smallest_multiple(n: u64) -> u64 {
     0
 }
 
-pub fn smallest_multiple(n: u64) -> u64 {
-    let mut factors: Vec<u64> = Vec::new();
+pub fn smallest_multiple(n: usize) -> usize {
+    let mut factors: Vec<usize> = Vec::new();
 
     for p in 1..n + 1 {
-        let pfs = helper::prime_factors(p as u64);
+        let pfs = helper::prime_factors(p as usize);
         for ele in &pfs {
             let a = pfs.iter().filter(|n| *n == ele).count();
             let b = factors.iter().filter(|n| *n == ele).count();
@@ -124,9 +122,9 @@ pub fn smallest_multiple(n: u64) -> u64 {
     factors.iter().product()
 }
 
-pub fn smallest_multiple2(n: u64) -> u64 {
-    let mut res: u64 = 1;
-    let gcd = |mut a: u64, mut b: u64| {
+pub fn smallest_multiple2(n: usize) -> usize {
+    let mut res: usize = 1;
+    let gcd = |mut a: usize, mut b: usize| {
         while a != 0 {
             let c = a;
             a = b % a;
@@ -135,7 +133,7 @@ pub fn smallest_multiple2(n: u64) -> u64 {
         b
     };
 
-    let lcm = |a: u64, b: u64| a * (b / gcd(a, b));
+    let lcm = |a: usize, b: usize| a * (b / gcd(a, b));
     for i in 2..n + 1 {
         res = lcm(res, i);
     }
@@ -167,10 +165,10 @@ pub fn sum_square_difference(n: u32) -> u32 {
 //
 // By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
 // that the 6th prime is 13. What is the 10 001st prime number?
-pub fn nth_prime(n: u32) -> u32 {
-    let mut count: u32 = 0;
+pub fn nth_prime(n: usize) -> usize {
+    let mut count: usize = 0;
 
-    for i in 2..u32::max_value() {
+    for i in 2..usize::max_value() {
         if helper::is_prime(i) {
             count += 1;
             if count == n {
@@ -179,4 +177,57 @@ pub fn nth_prime(n: u32) -> u32 {
         }
     }
     0
+}
+
+// Problem 10
+// Summation of primes
+//
+// The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+// Find the sum of all the primes below two million.
+pub fn sum_of_primes(n: usize) -> usize {
+    let mut primes = Vec::<usize>::new();
+
+    if n < 2 {
+        return 0;
+    }
+
+    for p in 2..n + 1 {
+        if helper::is_prime(p) {
+            primes.push(p);
+        }
+    }
+    primes.iter().sum()
+}
+
+extern crate bit_vec;
+use bit_vec::BitVec;
+
+// Sieve of Eratosthenes
+pub fn sum_of_primes_sieve(n: usize) -> usize {
+    let primes = {
+        let mut bv = BitVec::from_elem(n, true);
+
+        bv.set(0, false);
+        bv.set(1, false);
+
+        for i in 2..1 + (n as f64).sqrt() as usize {
+            if bv[i] {
+                for j in i.. {
+                    if i * j >= n {
+                        break;
+                    }
+                    bv.set(i * j, false)
+                }
+            }
+        }
+        bv
+    };
+
+    let mut sum: usize = 0;
+    for x in 0..n {
+        if primes.get(x).unwrap_or(false) {
+            sum += x;
+        }
+    }
+    sum
 }
