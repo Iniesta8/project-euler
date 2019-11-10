@@ -11,28 +11,28 @@ fn main() {
         process::exit(1);
     }
 
-    match &args[1].parse::<u32>().unwrap() {
-        1 => println!("Problem 1 solution: {}", solutions::multiples(1000)),
-        2 => println!("Problem 2 solution: {}", solutions::even_fibonacci(4000000)),
-        3 => println!(
+    match &args[1][..] {
+        "1" => println!("Problem 1 solution: {}", solutions::multiples(1000)),
+        "2" => println!("Problem 2 solution: {}", solutions::even_fibonacci(4000000)),
+        "3" => println!(
             "Problem 3 solution: {}",
             solutions::largest_prime_factor(600851475143)
         ),
-        4 => println!(
+        "4" => println!(
             "Problem 4 solution: {}",
             solutions::largest_palindrome_product(100, 999)
         ),
-        5 => println!(
+        "5" => println!(
             "Problem 5 solution A: {}, B: {}",
             solutions::smallest_multiple(20),
             solutions::smallest_multiple2(20)
         ),
-        6 => println!(
+        "6" => println!(
             "Problem 6 solution: {}",
             solutions::sum_square_difference(100)
         ),
-        7 => println!("Problem 7 solution: {}", solutions::nth_prime(10001)),
-        8 => {
+        "7" => println!("Problem 7 solution: {}", solutions::nth_prime(10001)),
+        "8" => {
             let s8 = "73167176531330624919225119674426574742355349194934\
                       96983520312774506326239578318016984801869478851843\
                       85861560789112949495459501737958331952853208805511\
@@ -59,13 +59,13 @@ fn main() {
                 solutions::largest_product_in_a_series(s8, 13)
             );
         }
-        9 => {
+        "9" => {
             match solutions::pythagorean_triplet(1000) {
                 Some(found) => println!("Problem 9 solution: {}", found.a * found.b * found.c),
                 None => println!("Problem 9: no pythagorean triplet found"),
             };
         }
-        10 => println!(
+        "10" => println!(
             "Problem 10 solution A: {}, B: {}",
             solutions::sum_of_primes(2000000),
             solutions::sum_of_primes_sieve(2000000)
