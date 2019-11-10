@@ -196,6 +196,7 @@ pub fn sum_of_primes(n: usize) -> usize {
             primes.push(p);
         }
     }
+
     primes.iter().sum()
 }
 
@@ -205,7 +206,7 @@ use bit_vec::BitVec;
 // Sieve of Eratosthenes
 pub fn sum_of_primes_sieve(n: usize) -> usize {
     let primes = {
-        let mut bv = BitVec::from_elem(n, true);
+        let mut bv = BitVec::from_elem(n + 1, true);
 
         bv.set(0, false);
         bv.set(1, false);
@@ -224,7 +225,7 @@ pub fn sum_of_primes_sieve(n: usize) -> usize {
     };
 
     let mut sum: usize = 0;
-    for x in 0..n {
+    for x in 0..n + 1 {
         if primes.get(x).unwrap_or(false) {
             sum += x;
         }
