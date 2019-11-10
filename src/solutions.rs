@@ -1,3 +1,6 @@
+#[path = "helper.rs"]
+mod helper;
+
 // Problem 1
 // Multiples of 3 and 5
 //
@@ -64,29 +67,9 @@ pub fn largest_prime_factor(mut n: u64) -> u64 {
 // A palindromic number reads the same both ways. The largest palindrome made
 // from the product of two 2-digit numbers is 9009 = 91 × 99. Find the largest
 // palindrome made from the product of two 3-digit numbers.
-fn prime_factors(mut n: u64) -> Vec<u64> {
-    let mut factors = Vec::new();
-
-    let mut p = 2;
-    while n >= p * p {
-        if n % p == 0 {
-            factors.push(p);
-            n /= p;
-        } else {
-            p += 1;
-        }
-    }
-    factors.push(n);
-    factors
-}
-
-fn is_palindromic_number(num: u64) -> bool {
-    num.to_string() == num.to_string().chars().rev().collect::<String>()
-}
-
 pub fn largest_palindrome_product(mut n: u64, m: u64) -> u64 {
     while n >= m {
-        if is_palindromic_number(n) {
+        if helper::is_palindromic_number(n) {
             for p in (100..999).rev() {
                 if n % p == 0 && (100..999).contains(&(n / p)) {
                     return n;
@@ -122,7 +105,7 @@ pub fn smallest_multiple(n: u64) -> u64 {
     let mut factors: Vec<u64> = Vec::new();
 
     for p in 1..n + 1 {
-        let pfs = prime_factors(p as u64);
+        let pfs = helper::prime_factors(p as u64);
         for ele in &pfs {
             let a = pfs.iter().filter(|n| *n == ele).count();
             let b = factors.iter().filter(|n| *n == ele).count();
@@ -139,21 +122,6 @@ pub fn smallest_multiple(n: u64) -> u64 {
         }
     }
     factors.iter().product()
-}
-
-#[allow(dead_code)]
-fn gcd(mut a: u64, mut b: u64) -> u64 {
-    while a != 0 {
-        let c = a;
-        a = b % a;
-        b = c;
-    }
-    b
-}
-
-#[allow(dead_code)]
-fn lcm(a: u64, b: u64) -> u64 {
-    a * (b / gcd(a, b))
 }
 
 pub fn smallest_multiple2(n: u64) -> u64 {
@@ -199,40 +167,11 @@ pub fn sum_square_difference(n: u32) -> u32 {
 //
 // By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
 // that the 6th prime is 13. What is the 10 001st prime number?
-#[allow(dead_code)]
-fn clumsy_is_prime(n: u32) -> bool {
-    if n <= 1 {
-        return false;
-    }
-    for i in 2..n {
-        if n % i == 0 {
-            return false;
-        }
-    }
-    true
-}
-
-fn is_prime(n: u32) -> bool {
-    if n <= 3 {
-        return n > 1;
-    } else if n % 2 == 0 || n % 3 == 0 {
-        return false;
-    }
-    let mut i = 5;
-    while i * i <= n {
-        if n % i == 0 || n % (i + 2) == 0 {
-            return false;
-        }
-        i += 6;
-    }
-    true
-}
-
 pub fn nth_prime(n: u32) -> u32 {
     let mut count: u32 = 0;
 
     for i in 2..u32::max_value() {
-        if is_prime(i) {
+        if helper::is_prime(i) {
             count += 1;
             if count == n {
                 return i;
