@@ -47,6 +47,12 @@ fn main() {
         "Problem 8 solution: {}",
         solutions::largest_product_in_a_series(s8, 13)
     );
+
+    match solutions::pythagorean_triplet(1000) {
+        Some(found) => println!("Problem 9 solution: {}", found.a * found.b * found.c),
+        None => println!("Problem 9: no pythagorean triplet found"),
+    };
+
     println!(
         "Problem 10 solution A: {}, B: {}",
         solutions::sum_of_primes(2000000),
