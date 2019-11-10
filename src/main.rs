@@ -13,10 +13,13 @@ fn main() {
 
     match &args[1][..] {
         "1" => println!("Problem 1 solution: {}", solutions::multiples(1000)),
-        "2" => println!("Problem 2 solution: {}", solutions::even_fibonacci(4000000)),
+        "2" => println!(
+            "Problem 2 solution: {}",
+            solutions::even_fibonacci(4_000_000)
+        ),
         "3" => println!(
             "Problem 3 solution: {}",
-            solutions::largest_prime_factor(600851475143)
+            solutions::largest_prime_factor(600_851_475_143)
         ),
         "4" => println!(
             "Problem 4 solution: {}",
@@ -67,8 +70,8 @@ fn main() {
         }
         "10" => println!(
             "Problem 10 solution A: {}, B: {}",
-            solutions::sum_of_primes(2000000),
-            solutions::sum_of_primes_sieve(2000000)
+            solutions::sum_of_primes(2_000_000),
+            solutions::sum_of_primes_sieve(2_000_000)
         ),
         _ => {
             println!("Given problem not solved yet. Sorry!");

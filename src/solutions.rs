@@ -65,8 +65,8 @@ pub fn largest_palindrome_product(l: usize, u: usize) -> usize {
 
     while n >= m {
         if helper::is_palindromic_number(n) {
-            for p in (l..u + 1).rev() {
-                if n % p == 0 && (l..u + 1).contains(&(n / p)) {
+            for p in (l..=u).rev() {
+                if n % p == 0 && (l..=u).contains(&(n / p)) {
                     return n;
                 }
             }
@@ -85,7 +85,7 @@ pub fn largest_palindrome_product(l: usize, u: usize) -> usize {
 #[allow(dead_code)]
 pub fn clumsy_smallest_multiple(n: usize) -> usize {
     for i in 1..usize::max_value() {
-        for j in 1..n + 1 {
+        for j in 1..=n {
             if i % j != 0 {
                 break;
             } else if j == n {
@@ -99,7 +99,7 @@ pub fn clumsy_smallest_multiple(n: usize) -> usize {
 pub fn smallest_multiple(n: usize) -> usize {
     let mut factors: Vec<usize> = Vec::new();
 
-    for p in 1..n + 1 {
+    for p in 1..=n {
         let pfs = helper::prime_factors(p as usize);
         for ele in &pfs {
             let a = pfs.iter().filter(|n| *n == ele).count();
@@ -131,7 +131,7 @@ pub fn smallest_multiple2(n: usize) -> usize {
     };
 
     let lcm = |a: usize, b: usize| a * (b / gcd(a, b));
-    for i in 2..n + 1 {
+    for i in 2..=n {
         res = lcm(res, i);
     }
     res
@@ -149,12 +149,7 @@ pub fn smallest_multiple2(n: usize) -> usize {
 // between the sum of the squares of the first one hundred natural numbers and
 // the square of the sum.
 pub fn sum_square_difference(n: u32) -> u32 {
-    let mut sum_squares: u32 = 0;
-    for i in 1..n + 1 {
-        sum_squares += i.pow(2);
-    }
-
-    (1..n + 1).sum::<u32>().pow(2) - sum_squares
+    (1..=n).sum::<u32>().pow(2) - (1..=n).map(|x| x.pow(2)).sum::<u32>()
 }
 
 // Problem 7

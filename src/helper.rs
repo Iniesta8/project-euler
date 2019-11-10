@@ -74,7 +74,7 @@ pub fn sieve_of_eratosthenes(n: usize) -> BitVec {
     bv.set(0, false);
     bv.set(1, false);
 
-    for i in 2..1 + (n as f64).sqrt() as usize {
+    for i in 2..=(n as f64).sqrt() as usize {
         if bv[i] {
             for j in i.. {
                 if i * j >= n {
