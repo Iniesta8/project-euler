@@ -65,11 +65,14 @@ pub fn largest_prime_factor(mut n: usize) -> usize {
 // A palindromic number reads the same both ways. The largest palindrome made
 // from the product of two 2-digit numbers is 9009 = 91 × 99. Find the largest
 // palindrome made from the product of two 3-digit numbers.
-pub fn largest_palindrome_product(mut n: usize, m: usize) -> usize {
+pub fn largest_palindrome_product(l: usize, u: usize) -> usize {
+    let m = l * l;
+    let mut n = u * u;
+
     while n >= m {
         if helper::is_palindromic_number(n) {
-            for p in (100..999).rev() {
-                if n % p == 0 && (100..999).contains(&(n / p)) {
+            for p in (l..u + 1).rev() {
+                if n % p == 0 && (l..u + 1).contains(&(n / p)) {
                     return n;
                 }
             }
@@ -191,7 +194,7 @@ pub fn sum_of_primes(n: usize) -> usize {
         return 0;
     }
 
-    for p in 2..n + 1 {
+    for p in 2..n {
         if helper::is_prime(p) {
             primes.push(p);
         }
@@ -206,7 +209,7 @@ use bit_vec::BitVec;
 // Sieve of Eratosthenes
 pub fn sum_of_primes_sieve(n: usize) -> usize {
     let primes = {
-        let mut bv = BitVec::from_elem(n + 1, true);
+        let mut bv = BitVec::from_elem(n, true);
 
         bv.set(0, false);
         bv.set(1, false);
@@ -225,10 +228,73 @@ pub fn sum_of_primes_sieve(n: usize) -> usize {
     };
 
     let mut sum: usize = 0;
-    for x in 0..n + 1 {
+    for x in 0..n {
         if primes.get(x).unwrap_or(false) {
             sum += x;
         }
     }
     sum
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_multiples() {
+        assert_eq!(multiples(10), 23);
+    }
+
+    #[test]
+    fn test_even_fibonacci() {
+        assert_eq!(even_fibonacci(10), 10);
+    }
+
+    #[test]
+    fn test_largest_prime_factor() {
+        assert_eq!(largest_prime_factor(13195), 29);
+    }
+
+    #[test]
+    fn test_largest_palindrome_product() {
+        assert_eq!(largest_palindrome_product(10, 99), 9009);
+    }
+
+    #[test]
+    fn test_clumsy_smallest_multiple() {
+        assert_eq!(clumsy_smallest_multiple(10), 2520);
+    }
+
+    #[test]
+    fn test_smallest_multiple() {
+        assert_eq!(smallest_multiple(10), 2520);
+    }
+
+    #[test]
+    fn test_smallest_multiple2() {
+        assert_eq!(smallest_multiple2(10), 2520);
+    }
+
+    #[test]
+    fn test_sum_square_difference() {
+        assert_eq!(sum_square_difference(10), 2640);
+    }
+
+    #[test]
+    fn test_nth_prime() {
+        assert_eq!(nth_prime(6), 13);
+        assert_eq!(nth_prime(1), 2);
+    }
+
+    #[test]
+    fn test_sum_of_primes() {
+        assert_eq!(sum_of_primes(5), 2 + 3);
+        assert_eq!(sum_of_primes(7), 2 + 3 + 5);
+    }
+
+    #[test]
+    fn test_sum_of_primes_sieve() {
+        assert_eq!(sum_of_primes_sieve(5), 2 + 3);
+        assert_eq!(sum_of_primes_sieve(7), 2 + 3 + 5);
+    }
 }

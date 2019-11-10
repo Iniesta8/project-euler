@@ -9,7 +9,7 @@ fn main() {
     );
     println!(
         "Problem 4 solution: {}",
-        solutions::largest_palindrome_product(999 * 999, 100 * 100)
+        solutions::largest_palindrome_product(100, 999)
     );
     println!(
         "Problem 5 solution A: {}, B: {}",
