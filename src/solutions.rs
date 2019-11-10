@@ -8,13 +8,7 @@ mod helper;
 // get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the
 // multiples of 3 or 5 below 1000.
 pub fn multiples(n: u32) -> u32 {
-    let mut sum: u32 = 0;
-    for ele in 0..n {
-        if ele % 3 == 0 || ele % 5 == 0 {
-            sum += ele;
-        }
-    }
-    sum
+    (0..n).filter(|x| x % 3 == 0 || x % 5 == 0).sum()
 }
 
 // Problem 2
