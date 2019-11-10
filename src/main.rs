@@ -45,7 +45,7 @@ fn main() {
 
     println!(
         "Problem 8 solution: {}",
-        solutions::largest_product_in_a_series(&String::from(s8), 13)
+        solutions::largest_product_in_a_series(s8, 13)
     );
     println!(
         "Problem 10 solution A: {}, B: {}",

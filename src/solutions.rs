@@ -211,7 +211,7 @@ pub fn nth_prime(n: usize) -> usize {
 // Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. What is the value of this product?
 use std::cmp;
 
-pub fn largest_product_in_a_series(input: &String, wsize: usize) -> u64 {
+pub fn largest_product_in_a_series(input: &str, wsize: usize) -> u64 {
     let v = input
         .chars()
         .filter_map(|a| a.to_digit(10))
@@ -225,7 +225,6 @@ pub fn largest_product_in_a_series(input: &String, wsize: usize) -> u64 {
         }
         largest = cmp::max(largest, prod);
     }
-
     largest
 }
 
