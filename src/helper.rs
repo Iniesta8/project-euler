@@ -3,6 +3,10 @@
 pub fn prime_factors(mut n: u64) -> Vec<u64> {
     let mut factors = Vec::new();
 
+    if n < 2 {
+        return factors;
+    }
+
     let mut p = 2;
     while n >= p * p {
         if n % p == 0 {
@@ -59,4 +63,42 @@ pub fn is_prime(n: u32) -> bool {
         i += 6;
     }
     true
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn test_prime_factors() {
+        assert_eq!(prime_factors(12), [2, 2, 3]);
+        assert_eq!(prime_factors(37), [37]);
+        assert_eq!(prime_factors(1), []);
+    }
+
+    #[test]
+    fn test_is_palindromic_number() {
+        assert_eq!(is_palindromic_number(4664), true);
+        assert_eq!(is_palindromic_number(3456), false);
+        assert_eq!(is_palindromic_number(5), true);
+    }
+
+    #[test]
+    fn test_gcd() {
+        assert_eq!(gcd(12, 8), 4);
+        assert_eq!(gcd(15, 15), 15);
+    }
+
+    #[test]
+    fn test_lcm() {
+        assert_eq!(lcm(3, 4), 12);
+        assert_eq!(lcm(5, 2), 10);
+    }
+
+    #[test]
+    fn test_is_prime() {
+        assert_eq!(is_prime(37), true);
+        assert_eq!(is_prime(42), false);
+        assert_eq!(is_prime(1), false);
+        assert_eq!(is_prime(0), false);
+    }
 }
