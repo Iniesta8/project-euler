@@ -203,29 +203,9 @@ pub fn sum_of_primes(n: usize) -> usize {
     primes.iter().sum()
 }
 
-extern crate bit_vec;
-use bit_vec::BitVec;
-
-// Sieve of Eratosthenes
+// Sieve of Eratosthenes based solution
 pub fn sum_of_primes_sieve(n: usize) -> usize {
-    let primes = {
-        let mut bv = BitVec::from_elem(n, true);
-
-        bv.set(0, false);
-        bv.set(1, false);
-
-        for i in 2..1 + (n as f64).sqrt() as usize {
-            if bv[i] {
-                for j in i.. {
-                    if i * j >= n {
-                        break;
-                    }
-                    bv.set(i * j, false)
-                }
-            }
-        }
-        bv
-    };
+    let primes = helper::sieve_of_eratosthenes(n);
 
     let mut sum: usize = 0;
     for x in 0..n {

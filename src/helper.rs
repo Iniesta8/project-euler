@@ -65,6 +65,28 @@ pub fn is_prime(n: usize) -> bool {
     true
 }
 
+extern crate bit_vec;
+use bit_vec::BitVec;
+
+pub fn sieve_of_eratosthenes(n: usize) -> BitVec {
+    let mut bv = BitVec::from_elem(n, true);
+
+    bv.set(0, false);
+    bv.set(1, false);
+
+    for i in 2..1 + (n as f64).sqrt() as usize {
+        if bv[i] {
+            for j in i.. {
+                if i * j >= n {
+                    break;
+                }
+                bv.set(i * j, false)
+            }
+        }
+    }
+    bv
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -100,5 +122,13 @@ mod tests {
         assert_eq!(is_prime(42), false);
         assert_eq!(is_prime(1), false);
         assert_eq!(is_prime(0), false);
+    }
+
+    #[test]
+    fn test_sieve_of_eratosthenes() {
+        assert_eq!(
+            sieve_of_eratosthenes(16),
+            BitVec::from_bytes(&[0b00110101, 0b00010100])
+        );
     }
 }
