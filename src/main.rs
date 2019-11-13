@@ -3,11 +3,18 @@ mod solutions;
 use std::env;
 use std::process;
 
+const SOLVED_PROBLEMS: [u32; 11] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 39];
+
 fn main() {
     let args: Vec<String> = env::args().collect();
 
     if args.len() != 2 {
         println!("Usage: ./project-euler <problem no.>");
+        print!("Already solved problems: ");
+        for p in SOLVED_PROBLEMS.iter() {
+            print!("{} ", p);
+        }
+        println!("");
         process::exit(1);
     }
 
@@ -72,6 +79,10 @@ fn main() {
             "Problem 10 solution A: {}, B: {}",
             solutions::sum_of_primes(2_000_000),
             solutions::sum_of_primes_sieve(2_000_000)
+        ),
+        "39" => println!(
+            "Problem 39 solution: {}",
+            solutions::integer_right_triangles(1000)
         ),
         _ => {
             println!("Given problem not solved yet. Sorry!");

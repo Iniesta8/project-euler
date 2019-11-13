@@ -299,6 +299,39 @@ pub fn sum_of_primes_sieve(n: usize) -> usize {
     sum
 }
 
+// Problem 39
+// Integer right triangles
+//
+// If p is the perimeter of a right angle triangle with integral length sides,
+// {a,b,c}, there are exactly three solutions for p = 120. {20,48,52},
+// {24,45,51}, {30,40,50} For which value of p ≤ 1000, is the number of
+// solutions maximised?
+pub fn integer_right_triangles(n: usize) -> usize {
+    let mut maxp = 0;
+    let mut maxcount = 0;
+
+    // Substitute c:
+    // c = p - a - b
+    // a^2 + b^2 = c^2
+    // a^2 + b^2 = (p - a - b)^2
+    // a^2 + b^2 = p^2 + a^2 + b^2 -2pa -2pb + 2ab
+    // b = (p^2 - 2pa) / (2(p - a))
+
+    for p in 2..=n {
+        let mut tcount = 0;
+        for a in 2..p / 3 {
+            if (p * (p - 2 * a)) % (2 * (p - a)) == 0 {
+                tcount += 1;
+            }
+        }
+        if tcount > maxcount {
+            maxcount = tcount;
+            maxp = p;
+        }
+    }
+    maxp
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -375,5 +408,10 @@ mod tests {
     fn test_sum_of_primes_sieve() {
         assert_eq!(sum_of_primes_sieve(5), 2 + 3);
         assert_eq!(sum_of_primes_sieve(7), 2 + 3 + 5);
+    }
+
+    #[test]
+    fn test_integer_right_triangles() {
+        assert_eq!(integer_right_triangles(15), 12)
     }
 }
