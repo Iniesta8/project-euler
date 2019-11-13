@@ -310,14 +310,24 @@ pub fn integer_right_triangles(n: usize) -> usize {
     let mut maxp = 0;
     let mut maxcount = 0;
 
-    // Substitute c:
+    // 1.
     // c = p - a - b
     // a^2 + b^2 = c^2
     // a^2 + b^2 = (p - a - b)^2
     // a^2 + b^2 = p^2 + a^2 + b^2 -2pa -2pb + 2ab
     // b = (p^2 - 2pa) / (2(p - a))
+    // => if b is integral, we have found an pyth. triplet
+    //
+    // 2.
+    // if a and b are even, c and p are even
+    // if either a or b are odd, c is odd and p is even
+    // if a and b are odd, c and p must be even
+    // => p is always even => skip all odd numbers
+    //
+    // 3.
+    // a <= b < c => a < p/3
 
-    for p in 2..=n {
+    for p in (2..=n).step_by(2) {
         let mut tcount = 0;
         for a in 2..p / 3 {
             if (p * (p - 2 * a)) % (2 * (p - a)) == 0 {
