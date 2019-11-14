@@ -80,6 +80,10 @@ fn main() {
             solutions::sum_of_primes(2_000_000),
             solutions::sum_of_primes_sieve(2_000_000)
         ),
+        "11" => println!(
+            "Problem 11 solution: {}",
+            solutions::largest_product_in_grid(4)
+        ),
         "39" => println!(
             "Problem 39 solution: {}",
             solutions::integer_right_triangles(1000)
