@@ -84,6 +84,10 @@ fn main() {
             "Problem 11 solution: {}",
             solutions::largest_product_in_grid(4)
         ),
+        "12" => println!(
+            "Problem 12 solution: {}",
+            solutions::highly_divisible_triangle_number(500)
+        ),
         "39" => println!(
             "Problem 39 solution: {}",
             solutions::integer_right_triangles(1000)

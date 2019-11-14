@@ -87,6 +87,19 @@ pub fn sieve_of_eratosthenes(n: usize) -> BitVec {
     bv
 }
 
+pub fn generate_triangle_numbers(n: usize) -> Vec<usize> {
+    let mut sequence = vec![1];
+
+    let mut last = 1;
+
+    for i in 2..=n {
+        last += i;
+        sequence.push(last);
+    }
+
+    sequence
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -130,5 +143,10 @@ mod tests {
             sieve_of_eratosthenes(16),
             BitVec::from_bytes(&[0b00110101, 0b00010100])
         );
+    }
+
+    #[test]
+    fn test_generate_triangle_numbers() {
+        assert_eq!(generate_triangle_numbers(7), [1, 3, 6, 10, 15, 21, 28]);
     }
 }
