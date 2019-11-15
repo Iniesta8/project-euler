@@ -65,6 +65,7 @@ fn main() {
             "Problem 12 solution: {}",
             solutions::highly_divisible_triangle_number(500)
         ),
+        "19" => println!("Problem 19 solution: {}", solutions::counting_sundays()),
         "39" => println!(
             "Problem 39 solution: {}",
             solutions::integer_right_triangles(1000)
