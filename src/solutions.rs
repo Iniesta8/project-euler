@@ -497,6 +497,21 @@ pub fn highly_divisible_triangle_number(d: usize) -> usize {
     tnum
 }
 
+// Problem 16
+// Power digit sum
+//
+// 2^15 = 32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
+// What is the sum of the digits of the number 2^1000?
+use num_bigint::BigUint;
+
+pub fn power_digit_sum(exp: usize) -> u32 {
+    num::pow(BigUint::new(vec![2]), exp)
+        .to_str_radix(10)
+        .chars()
+        .map(|c| c.to_digit(10).unwrap())
+        .sum()
+}
+
 // Problem 19
 // Counting Sundays
 //
@@ -648,5 +663,10 @@ mod tests {
     #[test]
     fn test_() {
         assert_eq!(highly_divisible_triangle_number(4), 28)
+    }
+
+    #[test]
+    fn test_power_digit_sum() {
+        assert_eq!(power_digit_sum(15), 26);
     }
 }
