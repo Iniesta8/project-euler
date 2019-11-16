@@ -542,6 +542,48 @@ pub fn counting_sundays() -> u32 {
     count
 }
 
+// Problem 30
+// Digit fifth powers
+//
+// Surprisingly there are only three numbers that can be written as the sum of
+// fourth powers of their digits:
+// 1634 = 1^4 + 6^4 + 3^4 + 4^4
+// 8208 = 8^4 + 2^4 + 0^4 + 8^4
+// 9474 = 9^4 + 4^4 + 7^4 + 4^4
+// As 1 = 1^4 is not a sum it is not included.
+// The sum of these numbers is 1634 + 8208 + 9474 = 19316.
+// Find the sum of all the numbers that can be written as the sum of fifth
+// powers of their digits.
+fn is_powers_sum(n: u32, power: u32) -> bool {
+    let res: u32 = n
+        .to_string()
+        .chars()
+        .map(|c| c.to_digit(10).unwrap().pow(power))
+        .sum();
+    res == n
+}
+
+pub fn digit_fifth_power() -> u32 {
+    let mut sum = 0;
+
+    // Find upper bound of loop
+    // 1 x 9^5 = 59049
+    // 2 x 9^5 = 118098
+    // 3 x 9^5 = 177147
+    // 4 x 9^5 = 236196
+    // 5 x 9^5 = 295245
+    // 6 x 9^5 = 354294
+    // 7 x 9^5 = 413343 <-- 7-digit number has only a 6-digit sum
+
+    for x in 2..=6 * 9u32.pow(5) {
+        if is_powers_sum(x, 5) {
+            sum += x;
+        }
+    }
+
+    sum
+}
+
 // Problem 39
 // Integer right triangles
 //

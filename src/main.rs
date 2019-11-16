@@ -67,6 +67,7 @@ fn main() {
         ),
         "16" => println!("Problem 16 solution: {}", solutions::power_digit_sum(1000)),
         "19" => println!("Problem 19 solution: {}", solutions::counting_sundays()),
+        "30" => println!("Problem 30 solution: {}", solutions::digit_fifth_power()),
         "39" => println!(
             "Problem 39 solution: {}",
             solutions::integer_right_triangles(1000)
