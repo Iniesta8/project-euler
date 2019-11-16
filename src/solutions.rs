@@ -423,8 +423,8 @@ pub fn largest_product_in_grid(k: usize) -> usize {
         0
     };
 
-    for x in 0..(g.len() as isize - k as isize + 1) {
-        for y in 0..(g[0].len() as isize - k as isize + 1) {
+    for x in 0..=g.len() as isize - k as isize {
+        for y in 0..=g[0].len() as isize - k as isize {
             let mut prod1 = 1;
             let mut prod2 = 1;
             let mut prod3 = 1;

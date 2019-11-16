@@ -14,7 +14,7 @@ fn main() {
         for p in SOLVED_PROBLEMS.iter() {
             print!("{} ", p);
         }
-        println!("");
+        println!();
         process::exit(1);
     }
 

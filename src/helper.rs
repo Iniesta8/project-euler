@@ -141,7 +141,7 @@ mod tests {
     fn test_sieve_of_eratosthenes() {
         assert_eq!(
             sieve_of_eratosthenes(16),
-            BitVec::from_bytes(&[0b00110101, 0b00010100])
+            BitVec::from_bytes(&[0b0011_0101, 0b0001_0100])
         );
     }
 
