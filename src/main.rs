@@ -71,6 +71,7 @@ fn main() {
             "Problem 39 solution: {}",
             solutions::integer_right_triangles(1000)
         ),
+        "52" => println!("Problem 52 solution: {}", solutions::permuted_multiples()),
         _ => {
             println!("Given problem not solved yet. Sorry!");
             process::exit(2);

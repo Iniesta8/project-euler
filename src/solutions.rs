@@ -585,6 +585,38 @@ pub fn integer_right_triangles(n: usize) -> usize {
     maxp
 }
 
+// Problem 52
+// Permuted multiples
+//
+// It can be seen that the number, 125874, and its double, 251748, contain
+// exactly the same digits, but in a different order. Find the smallest positive
+// integer, x, such that 2x, 3x, 4x, 5x, and 6x, contain the same digits.
+fn get_digits(n: u32) -> Vec<u32> {
+    let mut digits: Vec<u32> = n
+        .to_string()
+        .chars()
+        .map(|c| c.to_digit(10).unwrap())
+        .collect();
+
+    digits.sort();
+    digits
+}
+
+pub fn permuted_multiples() -> u32 {
+    for x in 1..u32::max_value() {
+        let xi = get_digits(x);
+        if xi == get_digits(2 * x)
+            && xi == get_digits(3 * x)
+            && xi == get_digits(4 * x)
+            && xi == get_digits(5 * x)
+            && xi == get_digits(6 * x)
+        {
+            return x;
+        }
+    }
+    0
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
