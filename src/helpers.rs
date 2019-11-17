@@ -100,6 +100,43 @@ pub fn generate_triangle_numbers(n: usize) -> Vec<usize> {
     sequence
 }
 
+// Returns divisors of a given value (unsorted!)
+pub fn get_divisors(n: usize) -> Vec<usize> {
+    let mut divisors: Vec<usize> = vec![];
+    for i in 1..=(n as f64).sqrt() as usize {
+        if n % i == 0 {
+            let temp = n / i;
+            if temp == i {
+                divisors.push(i);
+            } else {
+                divisors.push(i);
+                divisors.push(temp);
+            }
+        }
+    }
+    divisors
+}
+
+pub fn is_its_digits_powered_sum(n: u32, power: u32) -> bool {
+    let res: u32 = n
+        .to_string()
+        .chars()
+        .map(|c| c.to_digit(10).unwrap().pow(power))
+        .sum();
+    res == n
+}
+
+pub fn get_digits(n: u32) -> Vec<u32> {
+    let mut digits: Vec<u32> = n
+        .to_string()
+        .chars()
+        .map(|c| c.to_digit(10).unwrap())
+        .collect();
+
+    digits.sort();
+    digits
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -148,5 +185,22 @@ mod tests {
     #[test]
     fn test_generate_triangle_numbers() {
         assert_eq!(generate_triangle_numbers(7), [1, 3, 6, 10, 15, 21, 28]);
+    }
+
+    #[test]
+    fn test_get_divisors() {
+        let mut d = get_divisors(6);
+        d.sort();
+        assert_eq!(d, [1, 2, 3, 6]);
+    }
+
+    #[test]
+    fn test_is_its_digits_powered_sum() {
+        assert_eq!(is_its_digits_powered_sum(1634, 4), true);
+    }
+
+    #[test]
+    fn test_get_digits() {
+        assert_eq!(get_digits(1634), [1, 3, 4, 6]);
     }
 }

@@ -1,5 +1,5 @@
-#[path = "helper.rs"]
-mod helper;
+#[path = "helpers.rs"]
+mod helpers;
 
 // Problem 1
 // Multiples of 3 and 5
@@ -64,7 +64,7 @@ pub fn largest_palindrome_product(l: usize, u: usize) -> usize {
     let mut n = u * u;
 
     while n >= m {
-        if helper::is_palindromic_number(n) {
+        if helpers::is_palindromic_number(n) {
             for p in (l..=u).rev() {
                 if n % p == 0 && (l..=u).contains(&(n / p)) {
                     return n;
@@ -100,7 +100,7 @@ pub fn smallest_multiple(n: usize) -> usize {
     let mut factors: Vec<usize> = Vec::new();
 
     for p in 1..=n {
-        let pfs = helper::prime_factors(p as usize);
+        let pfs = helpers::prime_factors(p as usize);
         for ele in &pfs {
             let a = pfs.iter().filter(|n| *n == ele).count();
             let b = factors.iter().filter(|n| *n == ele).count();
@@ -161,7 +161,7 @@ pub fn nth_prime(n: usize) -> usize {
     let mut count: usize = 0;
 
     for i in 2..usize::max_value() {
-        if helper::is_prime(i) {
+        if helpers::is_prime(i) {
             count += 1;
             if count == n {
                 return i;
@@ -299,7 +299,7 @@ pub fn sum_of_primes(n: usize) -> usize {
     }
 
     for p in 2..n {
-        if helper::is_prime(p) {
+        if helpers::is_prime(p) {
             primes.push(p);
         }
     }
@@ -309,7 +309,7 @@ pub fn sum_of_primes(n: usize) -> usize {
 
 // Sieve of Eratosthenes based solution
 pub fn sum_of_primes_sieve(n: usize) -> usize {
-    let primes = helper::sieve_of_eratosthenes(n);
+    let primes = helpers::sieve_of_eratosthenes(n);
 
     let mut sum: usize = 0;
     for x in 0..n {
@@ -352,7 +352,7 @@ pub fn sum_of_primes_sieve(n: usize) -> usize {
 // (up, down, left, right, or diagonally) in the 20×20 grid?
 pub fn largest_product_in_grid(k: usize) -> usize {
     let mut maxproduct = 0;
-
+    #[allow(clippy::zero_prefixed_literal)]
     let g: [[usize; 20]; 20] = [
         [
             08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08,
@@ -470,27 +470,11 @@ pub fn largest_product_in_grid(k: usize) -> usize {
 // We can see that 28 is the first triangle number to have over five divisors.
 // What is the value of the first triangle number to have over five hundred
 // divisors?
-fn get_divisors(n: usize) -> Vec<usize> {
-    let mut divisors: Vec<usize> = vec![];
-    for i in 1..=(n as f64).sqrt() as usize {
-        if n % i == 0 {
-            let temp = n / i;
-            if temp == i {
-                divisors.push(i);
-            } else {
-                divisors.push(i);
-                divisors.push(temp);
-            }
-        }
-    }
-    divisors
-}
-
 pub fn highly_divisible_triangle_number(d: usize) -> usize {
     let mut tnum = 0;
     for i in 1..usize::max_value() {
         tnum += i;
-        if get_divisors(tnum).len() > d {
+        if helpers::get_divisors(tnum).len() > d {
             return tnum;
         }
     }
@@ -554,15 +538,6 @@ pub fn counting_sundays() -> u32 {
 // The sum of these numbers is 1634 + 8208 + 9474 = 19316.
 // Find the sum of all the numbers that can be written as the sum of fifth
 // powers of their digits.
-fn is_powers_sum(n: u32, power: u32) -> bool {
-    let res: u32 = n
-        .to_string()
-        .chars()
-        .map(|c| c.to_digit(10).unwrap().pow(power))
-        .sum();
-    res == n
-}
-
 pub fn digit_fifth_power() -> u32 {
     let mut sum = 0;
 
@@ -576,7 +551,7 @@ pub fn digit_fifth_power() -> u32 {
     // 7 x 9^5 = 413343 <-- 7-digit number has only a 6-digit sum
 
     for x in 2..=6 * 9u32.pow(5) {
-        if is_powers_sum(x, 5) {
+        if helpers::is_its_digits_powered_sum(x, 5) {
             sum += x;
         }
     }
@@ -633,18 +608,9 @@ pub fn integer_right_triangles(n: usize) -> usize {
 // It can be seen that the number, 125874, and its double, 251748, contain
 // exactly the same digits, but in a different order. Find the smallest positive
 // integer, x, such that 2x, 3x, 4x, 5x, and 6x, contain the same digits.
-fn get_digits(n: u32) -> Vec<u32> {
-    let mut digits: Vec<u32> = n
-        .to_string()
-        .chars()
-        .map(|c| c.to_digit(10).unwrap())
-        .collect();
-
-    digits.sort();
-    digits
-}
-
 pub fn permuted_multiples() -> u32 {
+    use helpers::get_digits;
+
     for x in 1..u32::max_value() {
         let xi = get_digits(x);
         if xi == get_digits(2 * x)
